@@ -19,9 +19,7 @@ button.addEventListener("click", async (event) => {
             icon: "error",
             title: "Oops...",
             text: error.message || "Something went wrong! Please try again.",
-            footer: '<a href="#">Why do I have this issue?</a>'
         });
 
-        console.log("Show message", error.message);
     }
 });
