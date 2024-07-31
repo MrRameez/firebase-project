@@ -14,6 +14,8 @@ button.addEventListener("click", async (event) => {
         await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
         window.location.href = "./dashboard.html"
 
+     window.location.herf = "../Pages/dashboard"
+
         // Optionally redirect or show success message here
     } catch (error) {
         Swal.fire({
