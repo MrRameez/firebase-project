@@ -34,7 +34,7 @@ btn.addEventListener("click", async (event) => {
   try {
       event.preventDefault();
       await signOut(auth);
-      // window.location.href = "./login.html"
+      window.location.href = "./login.html"
       console.log("Sign-out successful");
   } catch (error) {
       console.log("Error signing out:", error);
