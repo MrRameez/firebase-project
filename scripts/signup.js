@@ -12,6 +12,7 @@ button.addEventListener("click", async (event) => {
         const passwordValue = passwordInput.value;
     
         await createUserWithEmailAndPassword(auth, emailValue, passwordValue);
+        window.location.href = "./dashboard.html"
 
         // Optionally redirect or show success message here
     } catch (error) {

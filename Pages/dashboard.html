@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../asset/dashboard.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
     <header>
@@ -12,10 +12,20 @@
             <h1>Protected Dashboard</h1>
             <div class="nav-items">
                 <p id="user-email">User Email</p>
-                <button type="submit" id="logout-botton">Logout</button>
+                <button type="submit" id="logout-button">Logout</button>
             </div>
         </nav>
     </header>
+
+    <h1>Firestore</h1>
+    <form id="product-form">
+        <input type="text" placeholder="Product Name" id="product-name" required />
+        <input type="number" placeholder="Product Price" id="product-price" required />
+        <input type="text" placeholder="Product Detail" id="product-detail" required />
+        <button type="submit">Done</button>
+    </form>
+
+    <div class="allProducts"></div>
 
     <script type="module" src="../scripts/dashboard.js"></script>
 </body>
