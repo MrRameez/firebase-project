@@ -6,85 +6,113 @@ import {
   collection,
   addDoc,
   serverTimestamp,
-  onSnapshot
+  onSnapshot,
+  ref,
+  uploadBytes,
+  storage,
+  getDownloadURL,
 } from "./firebase.js";
 
 const userEmailDiv = document.querySelector("#user-email");
 const form = document.querySelector("#product-form");
 const productName = document.querySelector("#product-name");
 const productPrice = document.querySelector("#product-price");
-const productDetail = document.querySelector("#product-detail");
-const allProducts = document.querySelector(".allProducts");
+const productDescription = document.querySelector("#product-description");
+const productImage = document.querySelector("#product-image");
+const productsContainer = document.querySelector(".allProducts");
+const hamburgerMenu = document.querySelector(".hamburger-menu");
+const navItems = document.querySelector(".nav-items");
 
 const myCollectionReference = collection(db, "products");
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-      console.log("User is signed in", user);
-      userEmailDiv.innerText = user.email;
-  } else {
-      window.location.href = "./login.html";
-      console.log("User is signed out");
-  }
-});
-
-const btn = document.querySelector("#logout-button");
-
-btn.addEventListener("click", async (event) => {
-  try {
-      event.preventDefault();
-      await signOut(auth);
-      window.location.href = "./login.html"
-      console.log("Sign-out successful");
-  } catch (error) {
-      console.log("Error signing out:", error);
-  }
+hamburgerMenu.addEventListener("click", () => {
+  navItems.classList.toggle("active");
+  hamburgerMenu.classList.toggle("active");
 });
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const imageFile = productImage.files[0];
+  let imageUrl = "";
 
-  const myProduct = {
-      productName: productName.value,
-      productPrice: Number(productPrice.value),
-      productImg: null,
-      productDetail: productDetail.value,
-      createdAt: serverTimestamp(),
-  };
+  if (imageFile) {
+      const storageRef = ref(storage, `product-images/${imageFile.name}`);
+      await uploadBytes(storageRef, imageFile);
+      imageUrl = await getDownloadURL(storageRef);
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your Image has been uploaded",
+        showConfirmButton: false,
+        timer: 1500
+      });
+  }
 
   try {
-      await addDoc(myCollectionReference, myProduct);
-      form.reset();
-  } catch (e) {
-      console.log("Error adding document:", e);
+      await addDoc(myCollectionReference, {
+          name: productName.value,
+          price: productPrice.value,
+          description: productDescription.value,
+          imageUrl: imageUrl,
+          userEmail: userEmailDiv.textContent,
+          timestamp: serverTimestamp(),
+      });
+
+      productName.value = "";
+      productPrice.value = "";
+      productDescription.value = "";
+      productImage.value = "";
+  } catch (error) {
+      console.error("Error adding document: ", error);
   }
 });
 
-onSnapshot(myCollectionReference, (snapshot) => {
-  allProducts.innerHTML = ''; // Clear the current content to avoid duplication
-  snapshot.docs.forEach((eachDoc) => {
-      const product = eachDoc.data();
-      const productHTML = `
-          <div>
-              <h3>${product.productName}</h3>
-              <span>${product.createdAt?.toDate().toLocaleString()}</span>
-              <p class="price">Rs.${product.productPrice}</p>
-              <p>${product.productDetail}</p>
-          </div>`;
-      allProducts.innerHTML += productHTML;
+const formatDateTime = (timestamp) => {
+  const date = timestamp.toDate();
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+};
+
+const displayProducts = (products) => {
+  productsContainer.innerHTML = "";
+  products.forEach((product) => {
+      const productDiv = document.createElement("div");
+      productDiv.innerHTML = `
+          <img src="${product.imageUrl}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p class="price">$${product.price}</p>
+          <span>${product.description}</span>
+          <span>${formatDateTime(product.timestamp)}</span>
+      `;
+      productsContainer.appendChild(productDiv);
   });
+};
+
+const filterProductsByUserEmail = (products, userEmail) => {
+  return products.filter((product) => product.userEmail === userEmail);
+};
+
+const fetchProducts = (userEmail) => {
+  onSnapshot(myCollectionReference, (snapshot) => {
+      const products = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+      }));
+
+      const filteredProducts = filterProductsByUserEmail(products, userEmail);
+      displayProducts(filteredProducts);
+  });
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+      userEmailDiv.textContent = user.email;
+      fetchProducts(user.email);
+  } else {
+      window.location.href = "login.html";
+  }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+document.querySelector("#logout-button").addEventListener("click", async () => {
+  await signOut(auth);
+});

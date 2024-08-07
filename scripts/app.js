@@ -8,3 +8,4 @@ onAuthStateChanged(auth, (user) => {
       window.location.href = "../Pages/login.html"
     }
   });
+  

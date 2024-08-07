@@ -16,6 +16,15 @@ import {
     onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-storage.js";
+
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCvK3eXpHbvhttWIhVuvi8_PkZra88cuwc",
@@ -31,7 +40,12 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+
+
 const db = getFirestore(app);
+
+const storage = getStorage(app);
+
 
 export {
     auth,
@@ -44,6 +58,10 @@ export {
     addDoc,
     serverTimestamp,
     getDocs,
-    onSnapshot
+    onSnapshot,
+    ref, 
+    uploadBytes,
+    storage,
+    getDownloadURL
 };
 

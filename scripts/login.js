@@ -24,4 +24,3 @@ button.addEventListener("click", async (event) => {
         });
     }
 });
-

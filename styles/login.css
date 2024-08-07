@@ -1,74 +1,79 @@
 @import url('http://font.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-html,body{
+html, body {
     display: grid;
     height: 50%;
     place-items: center;
+    background-color: #121212; /* Dark background for the body */
+    color: #E0E0E0; /* Light text color */
 }
-.wrapper{
+.wrapper {
     width: 380px;
     border-radius: 35px;
-    box-shadow: 0px 15px 20px rgb(0,0 ,0.1 );
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    background-color: #1E1E1E; /* Dark background for the wrapper */
 }
-.wrapper .title{
-    color: #fff;
+.wrapper .title {
+    color: #E0E0E0;
     font-size: 35px;
     font-weight: 600;
     text-align: center;
     line-height: 100px;
     border-radius: 35px 35px 0px 0px;
-    background: linear-gradient(-135deg, #c850c0,#4158d0);
+    background: linear-gradient(-135deg, #9C27B0, #3F51B5); /* Adjusted colors for better contrast in dark mode */
 }
-.wrapper form{
+.wrapper form {
     padding: 10px 50px 70px 30px;
 }
-.wrapper form .field{
+.wrapper form .field {
     position: relative;
     height: 50px;
     width: 100%;
     margin-top: 20px;
     outline: none;
 }
-.wrapper form .field input{
+.wrapper form .field input {
     height: 100%;
     width: 100%;
     padding-left: 25px;
     border-radius: 25px;
     outline: none;
     font-size: 17px;
-    border: 1px solid rgb(192, 186, 186) ;
+    border: 1px solid #555555; /* Dark border color */
+    background-color: #2E2E2E; /* Dark input background */
+    color: #E0E0E0; /* Light text color */
     transition: all 0.3s ease;
 }
 .wrapper form .field input:focus,
-.wrapper form .field input:valid{
-    border-color: #4158d0;
+.wrapper form .field input:valid {
+    border-color: #3F51B5; /* Adjusted focus color */
 }
-.wrapper form .field label{
+.wrapper form .field label {
     position: absolute;
     top: 50px;
     left: 30px;
     font-size: 17px;
-    color: #999;
+    color: #999999;
     transform: translateY(-175%);
     pointer-events: none;
     transition: all 0.3s ease;
 }
 .wrapper form .field input:focus ~ label,
-.wrapper form .field input:valid ~ label{
+.wrapper form .field input:valid ~ label {
     top: 0px;
-    color: #4158d0;
+    color: #3F51B5;
     font-size: 16px;
     transform: translateY(-50%);
-    background-color: #fff;
+    background-color: #1E1E1E; /* Match the label background with the wrapper background */
 }
-.wrapper form .field input[type="submit"]{
-    color: #fff;
-    background: linear-gradient(-135deg, #c850c0,#4158d0);
+.wrapper form .field input[type="submit"] {
+    color: #E0E0E0;
+    background: linear-gradient(-135deg, #9C27B0, #3F51B5); /* Adjusted colors for better contrast in dark mode */
     font-size: 18px;
     font-weight: 500;
     border: none;
@@ -76,24 +81,24 @@ html,body{
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.wrapper form .field input[type="submit"]:active{
+.wrapper form .field input[type="submit"]:active {
     transform: scale(0.95);
 }
-.wrapper form .pass-link{
-    color: #4158d0;
+.wrapper form .pass-link {
+    color: #3F51B5;
     margin: 8px 0 0 9px;
 }
-.wrapper form .signup-link{
+.wrapper form .signup-link {
     text-align: center;
     margin-top: 20px;
-    color: #262626;
+    color: #E0E0E0;
 }
 .wrapper form .pass-link a,
-.wrapper form .signup-link a{
-    color: #4158d0;
+.wrapper form .signup-link a {
+    color: #3F51B5;
     text-decoration: none;
 }
 .wrapper form .pass-link a:hover,
-.wrapper form .signup-link a:hover{
+.wrapper form .signup-link a:hover {
     text-decoration: underline;
 }

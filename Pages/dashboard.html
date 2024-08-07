@@ -1,32 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firestore</title>
     <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
     <header>
         <nav>
-            <h1>Protected Dashboard</h1>
+            <h1>Firestore</h1>
             <div class="nav-items">
-                <p id="user-email">User Email</p>
-                <button type="submit" id="logout-button">Logout</button>
+                <span id="user-email">user@example.com</span>
+                <button id="logout-button">Logout</button>
+            </div>
+            <div class="hamburger-menu">
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </nav>
     </header>
 
     <h1>Firestore</h1>
+
     <form id="product-form">
-        <input type="text" placeholder="Product Name" id="product-name" required />
-        <input type="number" placeholder="Product Price" id="product-price" required />
-        <input type="text" placeholder="Product Detail" id="product-detail" required />
+        <input type="text" placeholder="Product Name" id="product-name" required/>
+        <input type="number" placeholder="Product Price" id="product-price" required/>
+        <input type="text" placeholder="Product Detail" id="product-description" required/>
+        <input type="file" accept="image/*" id="product-image"/>
         <button type="submit">Done</button>
     </form>
 
     <div class="allProducts"></div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../scripts/dashboard.js"></script>
 </body>
 </html>
